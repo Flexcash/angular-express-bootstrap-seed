@@ -7,8 +7,8 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
-
+  path = require('path'),
+  mysql = require('mysql');
 
 var app = module.exports = express();
 
@@ -25,6 +25,8 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
+
+mydb = mysql.createConnection({ host: 'mysql.dontemplates.com', user: 'cenpesco',  password: 'admin777',database:'ccpp2007'});
 
 // development only
 if (app.get('env') === 'development') {
@@ -44,6 +46,8 @@ app.get('/partial/:name', routes.partial);
 
 // JSON API
 app.get('/api/name', api.name);
+
+app.get('/api/ccpp', api.ccpp);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

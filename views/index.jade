@@ -21,10 +21,28 @@ block body
       .jumbotron  
         h1 Hello {{name}}
       div(ng-view)
+
+      p Search
+      input(ng-model = 'query')
+      p Sort by
+      select(ng-model = 'orderProp')
+        option(value="name") Nombre
+        option(value="city") Ciudad
+      ul(ng-repeat="user in lista | filter:query | orderBy:orderProp")
+        li {{ user.name + ' - ' + user.city}}       
+      hr
+
+      p Test
+      p Search
+      input(ng-model = 'filtroccpp')      
+      ul(ng-repeat="cp in ccpps | filter:filtroccpp")
+        li {{ cp.ID + ' - ' + cp.nomccpp}}       
+
     hr  
     div
       | Angular seed app: v
       span(app-version)
+
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')
